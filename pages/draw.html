@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draw</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            border: 1px solid #000;
+            margin: 10px 0;
+        }
+        .controls {
+            margin-bottom: 10px;
+        }
+        .color-button, .eraser-button {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #000;
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .color-button:hover, .eraser-button:hover {
+            border: 2px solid #000;
+        }
+        .eraser-button {
+            background-color: grey;
+        }
+            body {
+                background-image: url('https://i.imgur.com/oQndYnh.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button onclick="clearCanvas()">Clear</button>
+        <button onclick="toggleEraser()">Toggle Eraser</button>
+        <div>
+            <div class="color-button" style="background-color: red;" onclick="changeColor('red')"></div>
+            <div class="color-button" style="background-color: green;" onclick="changeColor('green')"></div>
+            <div class="color-button" style="background-color: blue;" onclick="changeColor('blue')"></div>
+            <div class="color-button" style="background-color: black;" onclick="changeColor('black')"></div>
+        </div>
+    </div>
+    <canvas id="drawingCanvas" width="800" height="600"></canvas>
+
+    <script>
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let isDrawing = false;
+        let currentColor = 'black'; // Default color
+        let isEraser = false; // Eraser mode is off by default
+
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (isDrawing) {
+                if (isEraser) {
+                    ctx.globalCompositeOperation = 'destination-out'; // Use eraser mode
+                    ctx.lineTo(e.offsetX, e.offsetY);
+                    ctx.stroke();
+                } else {
+                    ctx.globalCompositeOperation = 'source-over'; // Use drawing mode
+                    ctx.strokeStyle = currentColor;
+                    ctx.lineTo(e.offsetX, e.offsetY);
+                    ctx.stroke();
+                }
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            isDrawing = false;
+        });
+
+        canvas.addEventListener('mouseout', () => {
+            isDrawing = false;
+        });
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function changeColor(color) {
+            if (!isEraser) {
+                currentColor = color;
+                ctx.strokeStyle = currentColor;
+                ctx.lineWidth = 2; // Adjust line width as needed
+            }
+        }
+
+        function toggleEraser() {
+            isEraser = !isEraser;
+            if (isEraser) {
+                ctx.lineWidth = 10; // Eraser size
+            } else {
+                ctx.lineWidth = 2; // Brush size
+            }
+        }
+    </script>
+</body>
+</html>

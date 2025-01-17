@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Shows Search</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+      body {
+          background-image: url('https://i.imgur.com/oQndYnh.png');
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+      }
+  </style>
+</head>
+<body>
+    <header>
+        <h1><span class="title-highlight">tv</span> shows</h1>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search shows...">
+            <button id="search-button">
+                <img src="https://static-00.iconduck.com/assets.00/search-icon-2048x2048-cmujl7en.png" alt="Search Icon" class="search-icon">
+            </button>
+            <button id="favorites-button">View Favorites</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="search-results" class="grid-container">
+            <!-- Show results will be displayed here -->
+        </section>
+    </main>
+
+    <script src="/js/search.js"></script>
+</body>
+</html>
