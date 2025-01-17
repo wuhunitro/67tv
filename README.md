@@ -16,7 +16,7 @@ No, I don't have the skills to patch Tvii thats why this only works on the Inter
 
 Ngl its ok but not the best
 
-> what API did you use?
+> What API did you use?
 
 I used [TV Maze API](https://www.tvmaze.com/api)
 
